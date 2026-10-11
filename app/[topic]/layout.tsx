@@ -17,7 +17,7 @@ export default async function TopicLayout({
   const hasDocs = docsOf(topic.slug).length > 0;
 
   return (
-    <div className="mx-auto flex max-w-[76rem] gap-0 px-5 sm:px-8">
+    <div className="mx-auto flex max-w-[76rem] flex-col gap-0 px-5 sm:px-8 lg:flex-row">
       {hasDocs && <Sidebar topic={topic} />}
       <main className="min-w-0 flex-1">{children}</main>
     </div>
