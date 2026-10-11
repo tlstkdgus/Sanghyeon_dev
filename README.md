@@ -14,7 +14,7 @@
 | `data` 데이터·지식 표현 | 13장 작성 완료 |
 | `backend` 백엔드·인프라 | 목차만 |
 | `cs` CS 기초 | 목차만 |
-| `ai` AI·ML | 목차만 |
+| `ai` AI·ML | 15장 작성 완료 |
 
 ## 스크린샷
 
@@ -151,6 +151,19 @@ data 주제도 2026년 7월 기준입니다. 각 장의 `legend` 블록에 출�
 
 **13장은 법률 자문이 아닙니다.** 개인정보 관련 법령·지침은 개정이 잦으므로,
 인용하거나 실무에 적용하기 전에 반드시 원문과 최신 공지를 직접 확인하세요.
+
+ai 주제는 2026년 10월 기준입니다. 각 장 말미 「참고자료」와 `legend` 블록에 출처를 남겼습니다. 주요 1차 출처:
+
+- [Vaswani et al., *Attention Is All You Need*](https://arxiv.org/abs/1706.03762) (4장)
+- [Ouyang et al., *InstructGPT*](https://arxiv.org/abs/2203.02155) · [Hoffmann et al., *Chinchilla*](https://arxiv.org/abs/2203.15556) (5장)
+- [Lewis et al., *Retrieval-Augmented Generation*](https://arxiv.org/abs/2005.11401) (10장)
+- [Kalai et al., *Why Language Models Hallucinate*](https://arxiv.org/abs/2509.04664) (12장)
+- [Zheng et al., *Judging LLM-as-a-Judge*](https://arxiv.org/abs/2306.05685) (13장)
+- [OWASP Top 10 for LLM Applications 2025](https://genai.owasp.org/llm-top-10/) · [EU AI Act (EUR-Lex)](https://eur-lex.europa.eu/eli/reg/2024/1689/oj) (14장)
+- [Gholami et al., *AI and Memory Wall*](https://arxiv.org/abs/2403.14123) · [Kwon et al., *PagedAttention*](https://arxiv.org/abs/2309.06180) (15장)
+
+**ai 14장(보안·윤리·규제)도 법률 자문이 아닙니다.** EU AI Act는 2026년 개정(Regulation (EU) 2026/1744)으로
+일정이 바뀌었고, 한국 AI 기본법은 하위 법령·가이드라인이 계속 나오고 있으니 반드시 원문을 다시 확인하세요.
 
 ## 이미지 출처
 
