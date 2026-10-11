@@ -35,6 +35,11 @@ const blocks: Block[] = [
     t: "legend",
     md: "출처: Gholami et al., 「AI and Memory Wall」, IEEE Micro 2024 — [arXiv:2403.14123](https://arxiv.org/abs/2403.14123)",
   },
+  {
+    t: "diagram",
+    name: "memory-wall",
+    caption: "계산 성능과 메모리 대역폭의 증가율 차이를 10년으로 늘려 본 그림 (로그 눈금).",
+  },
 
   { t: "h3", md: "GPU와 메모리 계층" },
   {
@@ -146,6 +151,11 @@ const blocks: Block[] = [
     md: "모델 설정 출처: Touvron et al., 「Llama 2: Open Foundation and Fine-Tuned Chat Models」, 2023 — [arXiv:2307.09288](https://arxiv.org/abs/2307.09288) (70B 모델의 GQA 사용) 및 공개된 모델 설정값(80층, 어텐션 헤드 64개, KV 헤드 8개, 은닉 크기 8,192). 계산은 이 값으로 직접 한 것입니다.",
   },
   {
+    t: "diagram",
+    name: "kv-cache-bars",
+    caption: "대화 길이와 동시 사용자가 늘면 KV 캐시가 모델 가중치보다 커질 수 있습니다.",
+  },
+  {
     t: "p",
     md: "긴 문서를 넣고, 대화가 길어지고, 사용자가 몰리면 KV 캐시가 가중치보다 더 큰 메모리를 차지할 수도 있습니다. 「컨텍스트 윈도우를 늘리는 것」이 단순히 소프트웨어 설정이 아니라 메모리 문제인 이유입니다.",
   },
@@ -178,6 +188,11 @@ const blocks: Block[] = [
       { t: "card", title: "구멍을 뚫어 잇는다", body: [{ t: "p", md: "쌓은 칩들을 **TSV**(실리콘 관통 전극, 칩에 미세한 구멍을 뚫어 위아래를 직접 연결하는 기술)로 연결합니다. 엘리베이터를 수천 개 놓은 셈입니다." }] },
       { t: "card", title: "바로 옆에 붙인다", body: [{ t: "p", md: "GPU와 같은 기판(인터포저) 위, 바로 옆에 놓아 데이터가 이동하는 거리를 줄입니다." }] },
     ],
+  },
+  {
+    t: "diagram",
+    name: "hbm-stack",
+    caption: "GPU 옆에 붙은 HBM의 단면. 쌓고, 뚫어서 잇고, 바로 옆에 붙여 통로를 넓힙니다.",
   },
   {
     t: "callout",

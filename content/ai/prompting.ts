@@ -19,6 +19,11 @@ const blocks: Block[] = [
 
   { t: "h3", md: "좋은 프롬프트의 여섯 요소" },
   {
+    t: "diagram",
+    name: "prompt-anatomy",
+    caption: "회의록 요약 요청을 여섯 요소로 나눈 모습. 주황색 두 칸이 실무에서 가장 자주 빠집니다.",
+  },
+  {
     t: "table",
     head: ["요소", "알려주는 것", "약한 예", "강한 예"],
     rows: [

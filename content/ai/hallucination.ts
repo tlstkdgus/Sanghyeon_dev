@@ -43,6 +43,11 @@ const blocks: Block[] = [
       },
     ],
   },
+  {
+    t: "diagram",
+    name: "plausible-true",
+    caption: "그럴듯함과 사실 여부는 서로 다른 축입니다. 위험한 것은 오른쪽 위 칸입니다.",
+  },
   { t: "h4", md: "2. 드물게 본 사실은 흐릿하다" },
   {
     t: "p",
