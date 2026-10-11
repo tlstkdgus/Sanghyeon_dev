@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { FIGURES } from "@/components/figures";
+import type { Block } from "@/lib/blocks";
 import { groupedDocs, minutesOf, topicBySlug, topics } from "@/lib/content";
+import { outline } from "@/lib/sections";
 
 export const dynamicParams = false;
 
@@ -33,6 +36,19 @@ export default async function TopicPage({
   const groups = groupedDocs(topic);
   const planned = topic.status === "planned";
   const count = groups.reduce((a, g) => a + g.items.length, 0);
+
+  // 카드마다 그 장의 첫 도식을 미리보기로, 섹션 수를 함께 보여줍니다 (빌드 타임 계산).
+  const previews: Record<string, { fig?: string; sections: number }> = {};
+  await Promise.all(
+    groups.flatMap((g) => g.items).map(async (d) => {
+      const mod = (await import(`@/content/${d.topic}/${d.slug}`)) as { default: Block[] };
+      const first = mod.default.find((b) => b.t === "diagram");
+      previews[d.slug] = {
+        fig: first && first.t === "diagram" ? first.name : undefined,
+        sections: outline(mod.default).length,
+      };
+    })
+  );
 
   return (
     <div className="pb-8 lg:pl-12">
@@ -65,8 +81,10 @@ export default async function TopicPage({
                   <Link
                     key={d.slug}
                     href={`/${d.topic}/${d.slug}`}
-                    className="group flex flex-col rounded-lg border border-hairline bg-surface-1 p-5 transition-colors hover:bg-surface-2"
+                    className="group flex flex-col overflow-hidden rounded-[20px] border border-hairline bg-surface-1 transition-colors hover:border-ink-dim"
                   >
+                    <Preview name={previews[d.slug]?.fig} />
+                    <div className="flex flex-1 flex-col p-5">
                     <div className="flex items-baseline gap-2.5">
                       <span className="tnum text-caption text-ink-dim">
                         {String(d.num).padStart(2, "0")}
@@ -88,8 +106,10 @@ export default async function TopicPage({
                         </span>
                       ))}
                       <span className="tnum ml-auto text-micro text-ink-dim">
+                        {previews[d.slug]?.sections ? `${previews[d.slug].sections}개 섹션 · ` : ""}
                         {d.minutes}분
                       </span>
+                    </div>
                     </div>
                   </Link>
                 ))}
@@ -98,6 +118,29 @@ export default async function TopicPage({
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+/** 장의 첫 도식을 줄여 보여주는 미리보기. 도식이 없는 장은 그라디언트 면만. */
+function Preview({ name }: { name?: string }) {
+  const Fig = name ? FIGURES[name] : undefined;
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none relative h-40 overflow-hidden border-b border-hairline bg-canvas px-5 pt-4 [&_svg]:h-full [&_svg]:w-full"
+    >
+      {Fig ? (
+        <div className="h-full opacity-90 transition-opacity group-hover:opacity-100">
+          <Fig />
+        </div>
+      ) : (
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{ background: "linear-gradient(135deg, var(--grad-violet), var(--grad-magenta) 55%, var(--grad-orange))" }}
+        />
+      )}
+      <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-canvas to-transparent" />
     </div>
   );
 }

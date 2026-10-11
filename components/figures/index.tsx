@@ -4,10 +4,11 @@
  * (클라이언트로 나가는 JS가 없습니다).
  *
  * 새 도식을 추가하려면:
- *   1. `./data.tsx` 또는 `./web3.tsx`에 컴포넌트 작성 (부품은 `./primitives.tsx`)
+ *   1. `./data.tsx` · `./web3.tsx` · `./ai.tsx`에 컴포넌트 작성 (부품은 `./primitives.tsx`)
  *   2. 아래 FIGURES에 등록
  *   3. 본문에 `{ t: "diagram", name: "키", caption: "..." }` 삽입
  */
+import * as A from "./ai";
 import * as D from "./data";
 import * as W from "./web3";
 
@@ -31,6 +32,32 @@ export const FIGURES: Record<string, () => React.JSX.Element> = {
   "privacy-spectrum": D.PrivacySpectrum,
   "minimization-axes": D.MinimizationAxes,
   "pseudonym-risk-tiers": D.PseudonymRiskTiers,
+
+  /* ---------------- ai ---------------- */
+  "ai-nesting": A.AiNesting,
+  "fitting-curves": A.FittingCurves,
+  "confusion-matrix": A.ConfusionMatrix,
+  neuron: A.Neuron,
+  "gradient-descent": A.GradientDescent,
+  "tokenize-flow": A.TokenizeFlow,
+  "context-window": A.ContextWindow,
+  "attention-weights": A.AttentionWeights,
+  "rnn-vs-transformer": A.RnnVsTransformer,
+  "training-stages": A.TrainingStages,
+  "temperature-bars": A.TemperatureBars,
+  "embedding-space": A.EmbeddingSpace,
+  "prompt-anatomy": A.PromptAnatomy,
+  "adapt-decision": A.AdaptDecision,
+  "rag-failures": A.RagFailures,
+  "agent-loop": A.AgentLoop,
+  "error-compounding": A.ErrorCompounding,
+  "plausible-true": A.PlausibleTrue,
+  "work-loop": A.WorkLoop,
+  "prompt-injection": A.PromptInjectionFlow,
+  "regulation-timeline": A.RegulationTimeline,
+  "memory-wall": A.MemoryWall,
+  "hbm-stack": A.HbmStack,
+  "kv-cache-bars": A.KvCacheBars,
 
   /* ---------------- web3 ---------------- */
   "ownership-compare": W.OwnershipCompare,

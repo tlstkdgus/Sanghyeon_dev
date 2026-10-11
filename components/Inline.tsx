@@ -14,7 +14,10 @@ export default function Inline({ md }: { md: string }) {
         switch (t.k) {
           case "strong":
             return (
-              <strong key={i} className="font-medium text-ink">
+              <strong
+                key={i}
+                className="font-semibold text-ink [background-image:linear-gradient(transparent_64%,var(--hl)_64%)] [box-decoration-break:clone]"
+              >
                 {t.v}
               </strong>
             );
