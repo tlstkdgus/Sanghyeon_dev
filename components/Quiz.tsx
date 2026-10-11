@@ -6,13 +6,20 @@ import { useState } from "react";
 import { docs } from "@/lib/content";
 import { questions } from "@/lib/quiz";
 
-export default function Quiz() {
+/** topic을 주면 그 주제 챕터에 딸린 문항만 보여줍니다. */
+export default function Quiz({ topic }: { topic?: string }) {
+  const list = topic
+    ? questions.filter(
+        (q) => docs.find((d) => d.slug === q.chapter)?.topic === topic
+      )
+    : questions;
+
   const [picked, setPicked] = useState<(number | null)[]>(
-    questions.map(() => null)
+    list.map(() => null)
   );
 
   const answered = picked.filter((p) => p !== null).length;
-  const correct = picked.filter((p, i) => p === questions[i].answer).length;
+  const correct = picked.filter((p, i) => p === list[i].answer).length;
 
   function pick(qi: number, oi: number) {
     if (picked[qi] !== null) return;
@@ -26,7 +33,7 @@ export default function Quiz() {
         <div>
           <div className="tnum text-[2.5rem] font-medium leading-none tracking-[-0.05em] text-ink">
             {correct}
-            <span className="text-ink-dim">/{questions.length}</span>
+            <span className="text-ink-dim">/{list.length}</span>
           </div>
           <p className="mt-2.5 text-caption text-ink-dim">
             정답 · {answered}문항 응답
@@ -36,14 +43,14 @@ export default function Quiz() {
           <div className="h-px w-full bg-hairline">
             <div
               className="h-px bg-ink transition-[width] duration-500"
-              style={{ width: `${(answered / questions.length) * 100}%` }}
+              style={{ width: `${(answered / list.length) * 100}%` }}
             />
           </div>
         </div>
         {answered > 0 && (
           <button
             type="button"
-            onClick={() => setPicked(questions.map(() => null))}
+            onClick={() => setPicked(list.map(() => null))}
             className="rounded-pill bg-surface-2 px-4 py-2 text-button font-medium text-ink-muted transition-colors hover:text-ink"
           >
             다시 풀기
@@ -53,7 +60,7 @@ export default function Quiz() {
 
       {/* 문항 */}
       <ol className="mt-4 space-y-4">
-        {questions.map((q, qi) => {
+        {list.map((q, qi) => {
           const p = picked[qi];
           const doc = docs.find((d) => d.slug === q.chapter);
           const right = p === q.answer;

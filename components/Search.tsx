@@ -30,8 +30,8 @@ const items: Item[] = [
     href: "/glossary",
     kind: "부록",
     title: "용어집",
-    desc: "gas, nonce, MEV, TVL 등 25개 용어",
-    hay: "용어집 glossary 사전 용어 gas nonce mev tvl slippage oracle",
+    desc: "Web3 · AI 핵심 용어 정리",
+    hay: "용어집 glossary 사전 용어 gas nonce mev tvl slippage oracle 토큰 어텐션 rag 환각 임베딩 kv 캐시 hbm 프롬프트 인젝션",
   },
   {
     href: "/quiz",
