@@ -6,11 +6,54 @@ import { useEffect, useState } from "react";
 
 import { docsOf, groupedDocs, type Topic } from "@/lib/content";
 import { PROGRESS_EVENT, docKey, readProgress } from "@/lib/progress";
+import type { SectionInfo } from "@/lib/sections";
 
-export default function Sidebar({ topic }: { topic: Topic }) {
+/** 지금 화면 위쪽에 걸쳐 있는 섹션 id (스크롤 추적). */
+function useActiveSection(ids: string[]) {
+  const [active, setActive] = useState<string | null>(null);
+  const key = ids.join(",");
+
+  useEffect(() => {
+    if (ids.length === 0) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      let current: string | null = null;
+      for (const id of ids) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < 140) current = id;
+      }
+      setActive(current);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+    // ids는 key로 비교합니다 (배열 참조가 매 렌더 바뀌어도 다시 구독하지 않도록)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+
+  return active;
+}
+
+export default function Sidebar({
+  topic,
+  outlines = {},
+}: {
+  topic: Topic;
+  outlines?: Record<string, SectionInfo[]>;
+}) {
   const pathname = usePathname();
   const [done, setDone] = useState<string[]>([]);
   const [open, setOpen] = useState(false);
+  const activeSlug = pathname.split("/")[2] ?? "";
+  const activeSections = outlines[activeSlug] ?? [];
+  const activeId = useActiveSection(activeSections.map((s) => s.id));
 
   useEffect(() => {
     const sync = () => setDone(readProgress());
@@ -79,6 +122,28 @@ export default function Sidebar({ topic }: { topic: Topic }) {
                       />
                     )}
                   </Link>
+                  {active && activeSections.length > 1 && (
+                    <ul className="mb-2 ml-[1.15rem] mt-1 space-y-0.5 border-l border-hairline pl-3">
+                      {activeSections.map((s) => {
+                        const on = activeId === s.id;
+                        return (
+                          <li key={s.id}>
+                            <a
+                              href={`#${s.id}`}
+                              onClick={() => setOpen(false)}
+                              className={`-ml-[13px] block border-l py-1 pl-3 text-micro leading-snug transition-colors ${
+                                on
+                                  ? "border-ink text-ink"
+                                  : "border-transparent text-ink-dim hover:text-ink-muted"
+                              }`}
+                            >
+                              {s.title}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </li>
               );
             })}

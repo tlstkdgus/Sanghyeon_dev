@@ -23,6 +23,10 @@
   --ink: #ffffff;
   --ink-muted: #999999;
   --ink-dim: #666666;
+  /* 본문 장문 전용. muted(#999)는 긴 글에서 대비가 부족해 따로 둡니다 */
+  --ink-body: #cfcfd4;
+  /* 굵게 표시한 핵심 문장 밑의 형광펜 */
+  --hl: rgb(139 123 255 / 0.3);
 
   --accent: #0099ff; /* 링크·포커스·선택에만. 배경으로 쓰지 않습니다 */
   --accent-ring: rgb(0 153 255 / 0.15);
@@ -52,6 +56,8 @@
   --ink: #09090b;
   --ink-muted: #52525b;
   --ink-dim: #8a8a93;
+  --ink-body: #2e2e33;
+  --hl: rgb(91 75 214 / 0.16);
 
   --accent: #0077cc;
   --accent-ring: rgb(0 119 204 / 0.15);
@@ -79,6 +85,7 @@
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-ink-dim: var(--ink-dim);
+  --color-ink-body: var(--ink-body);
 
   --color-accent: var(--accent);
   --color-tip: var(--tip);
